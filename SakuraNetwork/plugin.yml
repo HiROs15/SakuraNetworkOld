@@ -1,0 +1,6 @@
+name: SakuraNetwork
+version: 1.0
+main: dev.sakura.SakuraNetwork
+commands:
+  rank:
+  hub:
