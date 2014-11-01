@@ -9,39 +9,30 @@ import org.bukkit.entity.Player;
 import dev.sakura.SakuraNetwork;
 
 public class EcoConfig {
-	private static EcoConfig inst;
-	private static Player player;
 	
-	private EcoConfig() {}
-	
-	public static EcoConfig getInstance(Player player) {
-		EcoConfig.player = player;
-		EcoConfig.inst = new EcoConfig();
-		return EcoConfig.inst;
-	}
+	public EcoConfig() {}
 	
 	private FileConfiguration config = null;
 	private File file = null;
 	private String path = SakuraNetwork.getInstance().getDataFolder() + File.separator + "users";
-	private String filename = EcoConfig.player.getUniqueId().toString()+".yml";
 	
-	public void reloadConfig() {
+	public void reloadConfig(Player player) {
 		if(file == null) {
-			file = new File(path, filename);
+			file = new File(path, player.getUniqueId().toString()+".data");
 		}
 		config = YamlConfiguration.loadConfiguration(file);
 	}
 	
-	public FileConfiguration getConfig() {
+	public FileConfiguration getConfig(Player player) {
 		if(config == null) {
-			reloadConfig();
+			reloadConfig(player);
 		}
 		return config;
 	}
 	
-	public void saveConfig() {
+	public void saveConfig(Player player) {
 		if(file == null) {
-			reloadConfig();
+			reloadConfig(player);
 		}
 		try {
 			config.save(file);

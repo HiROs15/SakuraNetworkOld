@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import dev.sakura.SakuraNetwork;
+import dev.sakura.Hub.Scoreboard.HubScoreboard;
 import dev.sakura.Ranks.Ranks;
 
 public class HubManager {
@@ -73,6 +74,13 @@ public class HubManager {
 		
 		//Set the player prefix
 		setupHubPrefix(player);
+		
+		//Update visible players
+		updateVisiblePlayers(player);
+		
+		//Show hub scoreboard
+		HubScoreboard.getInstance().cacheData(player);
+		HubScoreboard.getInstance().showHubScoreboard(player, "Loading...");
 	}
 	
 	public void teleportPlayerToHub(Player player) {
@@ -124,8 +132,18 @@ public class HubManager {
 	
 	@SuppressWarnings("deprecation")
 	public void updateVisiblePlayers(Player player) {
+		//Loop to hide hub players for others
 		for(Player p : Bukkit.getOnlinePlayers()) {
-			
+			if(!isPlayerInHub(p)) {
+				p.hidePlayer(player);
+			}
+		}
+		
+		//Loop
+		for(Player p : Bukkit.getOnlinePlayers()) {
+			if(isPlayerInHub(p)) {
+				player.hidePlayer(p);
+			}
 		}
 	}
 	

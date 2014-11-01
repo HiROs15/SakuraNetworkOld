@@ -8,6 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import dev.sakura.Commands.HubCommands.HubCommandManager;
 import dev.sakura.Commands.RanksCommands.RanksCommandManager;
+import dev.sakura.Economy.Events.EcoEvents;
 import dev.sakura.Hub.HubManager;
 import dev.sakura.Hub.Events.HubEvents;
 import dev.sakura.Ping.Ping;
@@ -56,6 +57,9 @@ public class SakuraNetwork extends JavaPlugin {
 		
 		//Hub Events
 		getServer().getPluginManager().registerEvents(new HubEvents(), this);
+		
+		//Economy Events
+		getServer().getPluginManager().registerEvents(new EcoEvents(), this);
 	}
 	
 	public void setupCommands() {
